@@ -1,15 +1,11 @@
-package com.mtinsky.Utils;
+package com.mtinsky.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SimpleUtils {
 
@@ -103,6 +99,52 @@ public class SimpleUtils {
             return message;
         } else {
             return message.substring(0,num);
+        }
+    }
+
+    /**
+     * 获取文件的扩展名
+     * @param filename 文件名，可以是包含路径的文件名，例如/usr/test.txt
+     * @return 如果filename为null，返回null，如果filename为空字符串，返回空字符串，如果filename没有扩展名，返回空字符串
+     */
+    public static String getExtensionName(String filename) {
+        if(filename==null) {
+            return null;
+        }
+        if("".equals(filename)) {
+            return "";
+        }
+        File file = new File(filename);
+        String realFileName = file.getName();
+        int index = realFileName.lastIndexOf(".");
+        if(index==-1) {
+            return "";
+        } else {
+            String extName = realFileName.substring(index+1);
+            return extName;
+        }
+    }
+
+    /**
+     * 获取文件名，不包含扩展名
+     * @param filename 文件名，可以是包含路径的文件名，例如/usr/test.txt
+     * @return 如果filename为null，返回null，如果filename为空字符串，返回空字符串
+     */
+    public static String getNameWithoutExtName(String filename) {
+        if(filename==null) {
+            return null;
+        }
+        if("".equals(filename)) {
+            return "";
+        }
+        File file = new File(filename);
+        String realFileName = file.getName();
+        int index = realFileName.lastIndexOf(".");
+        if(index==-1|| index==realFileName.length()-1) {
+            return realFileName;
+        } else {
+            String name = realFileName.substring(0,index);
+            return name;
         }
     }
 
