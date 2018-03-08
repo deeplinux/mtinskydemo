@@ -7,6 +7,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import java.util.List;
 
 /**
+ * 阿里巴巴的Fastjson库的使用示例
  * 参考http://blog.csdn.net/flysun3344/article/details/54707965
  */
 public class JsonUtils {

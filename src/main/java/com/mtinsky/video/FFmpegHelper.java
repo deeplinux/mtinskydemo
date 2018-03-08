@@ -7,30 +7,28 @@ import java.util.List;
 
 /**
  *  ffmpeg辅助类，提供截图功能(使用时按需添加一些日志打印的代码)
- *  本类所在的jar所在的文件夹下的lib内需放置截图需要的ffmpeg执行文件，本项目内的ffmpeg已放置在文件夹lib/ffmpeg内
+ *  本项目内的ffmpeg已放置在文件夹lib/ffmpeg内
  *  ffmpeg的使用可参考官方网站：https://www.ffmpeg.org/
  */
 public class FFmpegHelper {
-
-    public static FFmpegHelper fFmpegHelper = new FFmpegHelper();
 
     /**
      *  构造时确定ffmpeg进程路径
      */
     private String ffmpegName = null;
 
+
     /**
      * 默认构造方法，将根据jar的路径计算出ffmpeg的路径
+     * @param ffmpegRootPath 通过拼接路径得到ffmpeg的路径
      */
-    private FFmpegHelper(){
+    private FFmpegHelper(String ffmpegRootPath){
         String osName = System.getProperty("os.name");
-        String curJarDir = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        String binDir = new File(curJarDir).getParentFile().getAbsolutePath();
         osName = osName.toLowerCase();
         if(-1 != osName.indexOf("windows")){
-            ffmpegName = binDir + "/lib/ffmpeg/windows/ffmpeg.exe";
+            ffmpegName = ffmpegRootPath + "/lib/ffmpeg/windows/ffmpeg.exe";
         }else{
-            ffmpegName = binDir + "/lib/ffmpeg/linux/ffmpeg";
+            ffmpegName = ffmpegRootPath + "/lib/ffmpeg/linux/ffmpeg";
         }
         System.out.println(ffmpegName);
     }
@@ -90,8 +88,5 @@ public class FFmpegHelper {
         return -1;
     }
 
-    public static void main(String[] argv){
-        FFmpegHelper ffmpegHelper = new FFmpegHelper();
-        ffmpegHelper.makeVideoSnapshots("D:/GM-ZAP/21.avi","D:/GM-ZAP/21.snapshots.jpg", "00:00:03");
-    }
+
 }

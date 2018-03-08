@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties>
+        <property name="mysql_db_name" value="mybatisdemo"/>
+    </properties>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="BaseFile"  type="com.mybatisdemo.pojo.BaseFile"/>
+        <typeAlias alias="ReqParams" type="com.mybatisdemo.pojo.ReqParams"/>
+    </typeAliases>
+    <environments default="mysql">
+        <!--添加的第三方数据源-->
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="com.mybatisdemo.core.C3P0DataSourceFactory">
+                <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+                <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:5555/gmvcsbase?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull"/>
+                <property name="user" value="root"/>
+                <property name="password" value="123456"/>
+                <!--連接池中保留的最小連接數。-->
+                <property name="minPoolSize" value="10"/>
+                <!--連接池中保留的最大連接數。Default: 15 -->
+                <property name="maxPoolSize" value="100"/>
+                <!--最大空閑時間,1800秒內未使用則連接被丟棄。若为0則永不丟棄。Default: 0 -->
+                <property name="maxIdleTime" value="1800"/>
+                <!--當連接池中的連接耗盡的時候c3p0一次同時獲取的連接數。Default: 3 -->
+                <property name="acquireIncrement" value="3"/>
+                <property name="maxStatements" value="1000"/>
+                <property name="initialPoolSize" value="10"/>
+                <!--每60秒檢查所有連接池中的空閑連接。Default: 0 -->
+                <property name="idleConnectionTestPeriod" value="60"/>
+                <!--定義在從數據庫獲取新連接失敗後重复嘗試的次數。Default: 30 -->
+                <property name="acquireRetryAttempts" value="30"/>
+                <property name="breakAfterAcquireFailure" value="false"/>
+                <property name="testConnectionOnCheckout" value="false"/>
+            </dataSource>
+        </environment>
+        <environment id="oracle">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+                <property name="poolPingQuery" value="select 'validationQuery' from dual i"/>
+                <property name="poolPingEnabled" value="true"/>
+                <property name="poolPingConnectionsNotUsedFor" value="0"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/mybatisdemo/dao/BaseFileMapper.xml"/>
+    </mappers>
+
+</configuration>
