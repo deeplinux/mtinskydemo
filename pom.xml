@@ -14,6 +14,7 @@
         <module>exceldemo</module>
         <module>mybatisdemo</module>
         <module>swaggerdemo</module>
+        <module>nettydemo</module>
     </modules>
 
 
